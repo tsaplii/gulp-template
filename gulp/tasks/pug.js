@@ -4,6 +4,7 @@ import browserSync from 'browser-sync';
 import plumber from 'gulp-plumber';
 import { setup as emittySetup } from '@zoxon/emitty';
 import gulpif from 'gulp-if';
+import notify from 'gulp-notify';
 import config from '../config';
 
 const emittyPug = emittySetup(config.src.pug, 'pug', {
@@ -18,7 +19,14 @@ global.emittyChangedFile = {
 
 export const pugBuild = () => (
   src(`${config.src.pug}/*.pug`)
-    .pipe(plumber())
+    .pipe(plumber({
+      errorHandler(err) {
+        notify.onError({
+          title: 'Pug Error!',
+          message: '<%= error.message %>',
+        })(err);
+      },
+    }))
     .pipe(gulpif(
       global.watch,
       emittyPug.stream(

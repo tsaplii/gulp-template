@@ -1,5 +1,3 @@
-import { argv } from 'yargs';
-
 const srcPath = 'src';
 const destPath = 'build';
 
@@ -24,7 +22,7 @@ const config = {
   },
 
   setEnv() {
-    this.isProd = argv.production;
+    this.isProd = process.argv.includes('--production');
     this.isDev = !this.isProd;
   },
 };
