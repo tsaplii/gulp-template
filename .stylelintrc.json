@@ -1,6 +1,6 @@
 {
   "extends": [
-    "stylelint-config-standart",
+    "stylelint-config-standard",
     "stylelint-config-rational-order"
   ],
   "plugins": [
